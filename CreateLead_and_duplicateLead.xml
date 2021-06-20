@@ -1,0 +1,124 @@
+package week2.day1;
+
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Createleadandduplicatelead {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		// Step 2: Launch the chromebrowser
+		// Step 3: Load the URL
+		// Step 4: Maximise the window
+		
+		WebDriverManager.chromedriver().setup();
+		
+		ChromeDriver driver = new ChromeDriver();
+		
+		driver.get("http://leaftaps.com/opentaps/control/login");
+		
+		driver.manage().window().maximize();
+		
+		//1. Launch URL "http://leaftaps.com/opentaps/control/login"
+		//2. Enter UserName and Password Using Id Locator
+		//3. Click on Login Button using Class Locator
+	
+		
+		driver.findElement(By.id("username")).sendKeys("demosalesmanager");
+		driver.findElement(By.id("password")).sendKeys("crmsfa");
+		driver.findElement(By.className("decorativeSubmit")).click();
+		
+		//-----------------------------Login done-------------------------//
+		
+		//4. Get the Title and verify it
+		//4. Click on CRM/SFA Link
+		//5. Click on Leads Button
+		//6. Click on Create Lead Button
+		
+		String titles = driver.findElement(By.tagName("h2")).getText();
+		System.out.println(titles);
+		
+		if(titles.contains("Demo"))
+		{
+			System.out.println("The Login screen is reached successfully");
+		}
+		else
+		{
+			System.out.println("The Login screen is not reached successfully");
+		}
+		
+		//4. Click on CRM/SFA Link
+		
+		driver.findElement(By.linkText("CRM/SFA")).click();
+		
+		
+		
+		// Step10: Click Leads button
+		driver.findElement(By.linkText("Leads")).click();
+		
+		// Step11: Click CreateLead 
+		driver.findElement(By.linkText("Create Lead")).click();
+		
+		// Step12: Enter Company name
+		driver.findElement(By.id("createLeadForm_companyName")).sendKeys("Cognizant");
+		
+		// Step13: Enter FirstName
+		driver.findElement(By.id("createLeadForm_firstName")).sendKeys("PK");
+		
+		// Step14: Enter LastName
+		driver.findElement(By.id("createLeadForm_lastName")).sendKeys("A");
+		
+		driver.findElement(By.name("firstNameLocal")).sendKeys("Testleaf");
+		driver.findElement(By.name("lastNameLocal")).sendKeys("Testleaf1");
+		
+		
+		
+		//code for managing and selecting the DROP DOWN
+		
+				WebElement webEleSource = driver.findElement(By.id("createLeadForm_dataSourceId"));
+				Select dropDown = new Select(webEleSource);
+				dropDown.selectByVisibleText("Direct Mail");
+				
+
+		driver.findElement(By.id("createLeadForm_personalTitle")).sendKeys("positive");
+		
+		driver.findElement(By.id("createLeadForm_birthDate")).sendKeys("21/07/1992");
+		
+		// Click on the Create Lead button
+		driver.findElement(By.className("smallSubmit")).click();
+		
+		// Click on Duplicate Lead button
+		
+		driver.findElement(By.linkText("Duplicate Lead")).click();
+		
+		/// Clear the Existing Company name And Enter the New Company name
+		
+		driver.findElement(By.id("createLeadForm_companyName")).clear();
+		
+		driver.findElement(By.id("createLeadForm_companyName")).sendKeys("Accenture");
+		
+		// Click on the Create Lead button again for creating updations
+		
+		driver.findElement(By.className("smallSubmit")).click();
+		
+		String newCompany = driver.findElement(By.id("viewLead_companyName_sp")).getText();
+		
+		System.out.println("The updated company "+ newCompany);
+		
+		
+		////closing the browser
+		
+		driver.close();
+		
+		
+		
+	}
+
+}
