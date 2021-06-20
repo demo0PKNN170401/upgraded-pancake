@@ -1,0 +1,77 @@
+package week2.day1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Loginselenium {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		// Step 2: Launch the chromebrowser
+		// Step 3: Load the URL
+		// Step 4: Maximise the window
+		
+		WebDriverManager.chromedriver().setup();
+		
+		ChromeDriver driver = new ChromeDriver();
+		
+		driver.get("http://leaftaps.com/opentaps/control/login");
+		
+		driver.manage().window().maximize();
+		
+		// For logging in to the test leaf application 
+	
+		
+		driver.findElement(By.id("username")).sendKeys("demosalesmanager");
+		driver.findElement(By.id("password")).sendKeys("crmsfa");
+		driver.findElement(By.className("decorativeSubmit")).click();
+		
+        //	Verify the login process is successful
+		//  create a string variable to store the available text of header of the Login page
+		//  Try to print and validate the contents in header
+		//  create and loop ( if with Variable.contains(" Ex: Any part of strings in the header")) and print it for validation
+		
+		
+		String loginscreen = driver.findElement(By.tagName("h2")).getText();
+		System.out.println(loginscreen);
+		
+		if(loginscreen.contains("Demo"))
+		{
+			System.out.println("The Login screen has been valildated");
+		}
+		else
+		{
+			System.out.println("The Login screen is invalid");
+		}
+		
+		
+		//Click CRM/SFA link
+		driver.findElement(By.linkText("CRM/SFA")).click();
+		
+		
+		// Step10: Click Leads tab
+		driver.findElement(By.linkText("Leads")).click();
+		
+		// Step11: Click CreateLead 
+		driver.findElement(By.linkText("Create Lead")).click();
+		
+		// Step12: Enter Company name
+		driver.findElement(By.id("createLeadForm_companyName")).sendKeys("Cognizant");
+		
+		// Step13: Enter FirstName
+		driver.findElement(By.id("createLeadForm_firstName")).sendKeys("PK");
+		
+		// Step14: Enter LastName
+		driver.findElement(By.id("createLeadForm_lastName")).sendKeys("A");
+		
+		// Step15: Click CreateLead button and verify the created leads screen is visible on creation 
+		driver.findElement(By.name("submitButton")).click();
+		
+		
+
+	}
+
+}
